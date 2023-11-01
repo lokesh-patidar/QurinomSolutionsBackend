@@ -55,6 +55,7 @@ exports.getProducts = catchError(async (req, res, next) => {
      res.status(200).json({ success: true, message: 'Products get successfully!', products });
 });
 
+
 exports.getProductById = catchError(async (req, res, next) => {
      const productId = req.params.productId;
      const product = await ProductModel.findById(productId);
@@ -83,7 +84,6 @@ exports.updateProduct = catchError(async (req, res, next) => {
 exports.deleteProduct = catchError(async (req, res, next) => {
      const productId = req.params.productId;
      const deletedProduct = await ProductModel.findByIdAndRemove(productId);
-     console.log({ deletedUser });
      if (!deletedProduct) {
           return next(new ErrorHandler('Product not found!', 404));
      }

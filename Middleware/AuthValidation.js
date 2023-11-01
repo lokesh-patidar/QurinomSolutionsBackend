@@ -8,13 +8,10 @@ const AuthValidator = async (req, res, next) => {
     if (token) {
         try {
             const decoded = jwt.verify(token.split(' ')[1], process.env.JWT_SECRETE);
-            console.log({ decoded });
             req.user = await UserModel.findById(decoded.userId);
-            console.log({ user: req.user });
             next();
         }
         catch (error) {
-            console.log({ error });
             if (error.name === 'TokenExpiredError') {
                 return next(new ErrorHandler("Token expired", 401));
             }
