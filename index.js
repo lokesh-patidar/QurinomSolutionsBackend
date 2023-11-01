@@ -4,28 +4,28 @@ const { connection } = require('./Config/database');
 const userRoutes = require('./Routes/userRoutes');
 const { ErrorMiddleware } = require('./Middleware/Error');
 const sls = require('serverless-http');
+const productRoutes = require('./Routes/productRoutes');
 const app = express();
-const http = require('http');
-const path = require('path');
 
 app.use(express.json());
+
 app.use(cors({
     origin: "*"
 }));
 
-app.use(express.static(path.resolve("./public")))
-
 app.get("/", (req, res) => {
-    res.send({ Message: "Welcome to Live Streaming" });
+    res.send({ Message: "Welcome to Qurinom Solutions" });
 });
 
 // Routes
 app.use(userRoutes);
+app.use(productRoutes);
 
-app.listen(process.env.PORT || 4500, async () => {
+
+app.listen(process.env.PORT || 4700, async () => {
     try {
         await connection;
-        console.log("Connected to the Database");
+        console.log(`Connected to the Database at ${process.env.PORT}`);
     }
     catch (err) {
         console.log(err);
